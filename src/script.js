@@ -17,8 +17,29 @@ const scene = new THREE.Scene()
 /**
  * Galaxy
  */
+const parameters = {}
+parameters.count = 1000
+
 const generateGalaxy = () => {
-    console.log('generate galaxy')
+    /**
+     * Geometry
+     */
+    const geometry = new THREE.BufferGeometry()
+
+    const positions = new Float32Array(parameters.count * 3)
+    for (let i = 0; i < parameters.count; i++) {
+        const i3 = i * 3
+
+        positions[i3 + 0] = Math.random()
+        positions[i3 + 1] = Math.random()
+        positions[i3 + 2] = Math.random()
+    }
+
+    geometry.setAttribute(
+        'position',
+        new THREE.BufferAttribute(positions, 3 )
+    )
+    
 }
 
 generateGalaxy()
@@ -32,8 +53,7 @@ const sizes = {
     height: window.innerHeight
 }
 
-window.addEventListener('resize', () =>
-{
+window.addEventListener('resize', () => {
     // Update sizes
     sizes.width = window.innerWidth
     sizes.height = window.innerHeight
@@ -75,8 +95,7 @@ renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
  */
 const clock = new THREE.Clock()
 
-const tick = () =>
-{
+const tick = () => {
     const elapsedTime = clock.getElapsedTime()
 
     // Update controls
