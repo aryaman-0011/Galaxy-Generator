@@ -21,6 +21,7 @@ const scene = new THREE.Scene()
 const parameters = {}
 parameters.count = 100000
 parameters.size = 0.01
+parameters.radius = 5
 
 let geometry = null
 let material = null
@@ -47,9 +48,11 @@ const generateGalaxy = () => {
     for (let i = 0; i < parameters.count; i++) {
         const i3 = i * 3
 
-        positions[i3 + 0] = (Math.random() - 0.5) * 3
-        positions[i3 + 1] = (Math.random() - 0.5) * 3
-        positions[i3 + 2] = (Math.random() - 0.5) * 3
+        const radius = Math.random() * parameters.radius
+
+        positions[i3 + 0] = radius
+        positions[i3 + 1] = 0
+        positions[i3 + 2] = 0
     }
 
     geometry.setAttribute(
@@ -78,6 +81,7 @@ generateGalaxy()
 
 gui.add(parameters, 'count').min(100).max(1000000).step(100).onFinishChange(generateGalaxy)
 gui.add(parameters, 'size').min(0.001).max(0.1).step(0.001).onFinishChange(generateGalaxy)
+gui.add(parameters, 'radius').min(0.01).max(20).step(0.01).onFinishChange(generateGalaxy)
 
 /**
  * Sizes
